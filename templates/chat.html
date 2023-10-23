@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<link rel="stylesheet" href="../static/chat.css">
+{% endblock %}
+
+{% block content %}
+<h2>chat</h2>
+<p>{{ subject }}</p>
+{% for i in range(length) %}
+<div class="chat_content">
+    <p class="img_add">{{chatdata[i][1]}}</p>
+    <p>{{chatdata[i][2]}}</p>
+</div>
+
+{% endfor %}
+<form name="chatform" action="" method="post" enctype="multipart/form-data" >
+    <input type="text" name="img_presence_or_absence" class="hidden" value="absence">
+    <input type="text" name="content">
+    <input type="file" name="img" onchange="previewFile(this);">
+    <input type="text" name="poster">
+    <input type="submit" id="chat_sendbtn" value="送信する">
+</form>
+<p>プレビュー</p>
+<img id="preview">
+
+<script>
+
+window.addEventListener('load', () => {
+    const length = {{length|tojson}};
+    const chatdata = {{chatdata|tojson}}
+    alert(1)
+    const img_add = document.getElementsByClassName('img_add')
+    for(let i = 0; i < length; i++){
+        if(chatdata[i][3] != 'null'){
+            img_add[i].insertAdjacentHTML("afterend",
+            '<img class="img_chat" src="../static/' + chatdata[i][3] + '">');
+        }
+    }
+});
+
+const chatform = document.chatform
+
+function previewFile(hoge){
+var fileData = new FileReader();
+fileData.onload = (function() {
+    //id属性が付与されているimgタグのsrc属性に、fileReaderで取得した値の結果を入力することで
+    //プレビュー表示している
+    document.getElementById('preview').src = fileData.result;
+    chatform.img_presence_or_absence.value = 'presence'
+});
+fileData.readAsDataURL(hoge.files[0]);
+}
+
+const sendbtn = document.getElementById('chat_sendbtn')
+
+</script>
+{% endblock %}

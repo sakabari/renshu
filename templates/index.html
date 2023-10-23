@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+{% for i in range(length) %}
+<p><a href="/chat/{{chatindex[i][0]}}">{{chatindex[i][0]}}</a></p>
+{% endfor %}
+<a href="/upload">話題立て</a>
+{% endblock %}

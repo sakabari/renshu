@@ -1,0 +1,16 @@
+html{
+    font-size: 3vw;
+}
+.hidden{
+    display: none;
+}
+
+.hidden.active{
+    display: block;
+}
+
+.chat_content{
+    background-color: rgb(224, 255, 255);
+    margin: 1rem;
+    text-align: left;
+}
